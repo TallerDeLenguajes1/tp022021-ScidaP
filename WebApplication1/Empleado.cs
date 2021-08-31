@@ -15,7 +15,7 @@ namespace WebApplication1 {
         public int Antiguedad { get => antiguedad; set => antiguedad = value; }
         public float Salario { get => salario; set => salario = value; }
 
-        static Empleado CrearEmpleado(string nombre, string apellido, int edad, int antiguedad) {
+        public static Empleado CrearEmpleado(string nombre, string apellido, int edad, int antiguedad) {
             var nuevoEmpleado = new Empleado();
             var rand = new Random();
             int sueldoBasico = rand.Next(17000, 80000);
@@ -28,18 +28,18 @@ namespace WebApplication1 {
             return nuevoEmpleado;
         }
 
-        public static double CalcularAdicional(int antiguedad, int sueldoBasico) {
+        private static double CalcularAdicional(int antiguedad, int sueldoBasico) {
             // Adicional = 1% del sueldo básico por cada año, es 25% a partir de 20 años.
-            double porcentaje;
+            double PorcentajeAdicional;
             if (antiguedad < 20) {
-                porcentaje = antiguedad * 0.01;
-            } else {
-                porcentaje = antiguedad * 0.25;
+                PorcentajeAdicional = antiguedad * 0.01;
+            } else { // Si el empleado tiene más de 20 años de antiguedad, tendrá un adicional del 25%.
+                PorcentajeAdicional = 0.25;
             }
-            return sueldoBasico * porcentaje;
+            return sueldoBasico * PorcentajeAdicional;
         }
 
-        public static double CalcularSalario(double adicional, int sueldoBasico) {
+       private static double CalcularSalario(double adicional, int sueldoBasico) {
             double sueldo = sueldoBasico + adicional - (sueldoBasico * 0.15);
             return sueldo;
         }
